@@ -33,10 +33,12 @@ o usuario padrão disponivel para testar a aplicação é:
     email: admin@email.com
     senha: 123
 
-# Arquitetura concetual de deploy em produção na cloud aws:
+# Arquitetura conceitual de deploy em produção na cloud aws:
 
 ![image](https://github.com/Leonardo1695/DesafioNode/assets/46681435/e3a92d32-573b-4160-b0d6-f050e4d78b56)
 
 # Diagrama da base de dados:
+![image](https://github.com/Leonardo1695/DesafioNode/assets/46681435/3dde6e35-42d6-4d25-92e2-830a43b50a91)
 
 # Diagrama de fluxo:
+![image](https://github.com/Leonardo1695/DesafioNode/assets/46681435/4c0f8897-3a82-4052-884a-529966bfa403)
