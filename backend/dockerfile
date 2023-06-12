@@ -1,0 +1,12 @@
+FROM node:18-alpine
+
+RUN npm run build
+WORKDIR /src
+COPY package.json package-lock.json /dist/
+RUN npm install --production
+
+COPY . /dist
+
+EXPOSE 8085
+
+CMD ["node", "main.js"]

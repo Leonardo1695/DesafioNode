@@ -1,0 +1,59 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+body {
+  font-family: var(--font-family);
+}
+
+.card {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.container { 
+  display: flex;
+  min-width: 400px;
+  flex-direction: column;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-actions {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.button {
+  margin-bottom: 1rem;
+}
+
+.p-dropdown-label {
+  display: flex;
+}
+
+.header {
+  margin-bottom: 1rem;
+}
+
+.header p {
+  margin: 0;
+  font-size: large;
+  font-weight: 600;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
