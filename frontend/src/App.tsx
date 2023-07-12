@@ -10,6 +10,7 @@ import LoginComponent from './pages/login';
 import HomeComponent from './pages/home';
 import AppProvider from "./hooks";
 import FinancialPostComponent from "./pages/financial-post";
+import GlobalStyle from './styles/global'
 
 const router = createBrowserRouter([
 	{
@@ -30,6 +31,7 @@ function App() {
 	return (
 		<AppProvider>
 			<RouterProvider router={router} /> 
+			<GlobalStyle/>
 		</AppProvider>
 	)
 }

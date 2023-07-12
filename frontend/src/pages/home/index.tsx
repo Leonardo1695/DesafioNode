@@ -8,6 +8,7 @@ import { RevenueFilter, useRevenue, Revenue, FinancialPost } from '../../hooks/r
 import { useToast } from '../../hooks/toast';
 import { ValidationError } from 'yup';
 import { AxiosError } from 'axios';
+import Pagination from '../../components/Pagination';
 
 // import { Container } from './styles';
 
@@ -21,7 +22,7 @@ endOfToday.setUTCHours(23,59,59,999);
 
 const HomeComponent: React.FC = () => {
     const [revenue, setRevenue] = useState<Revenue>()
-    const [revenueFilter, setRevenueFilter] = useState<RevenueFilter>({ startDate: startOfToday.toISOString(), endDate: endOfToday.toISOString(), itemsPerPage: 50, page: 1 })
+    const [revenueFilter, setRevenueFilter] = useState<RevenueFilter>({ startDate: startOfToday.toISOString(), endDate: endOfToday.toISOString(), itemsPerPage: 2, page: 1 })
     const navigate = useNavigate();
     const { addToast } = useToast()
     const { getRevenue, deleteFinancialPost } = useRevenue()
@@ -98,6 +99,12 @@ const HomeComponent: React.FC = () => {
         return <Button onClick={() => handleDelete(item.id)} icon="pi pi-times" rounded raised />
     };
 
+    const handlePageChange = (page: number) => {
+        const newFilter = { ...revenueFilter, page };
+        loadRevenue(newFilter);
+        setRevenueFilter(newFilter);
+    }
+
     useEffect(() => {
         loadRevenue(revenueFilter)
     },[])
@@ -135,6 +142,13 @@ const HomeComponent: React.FC = () => {
                             <Column body={actionsBodyTemplate} header="Deletar"></Column>
                         </DataTable>
                     </div>
+                    <Pagination
+                        page={revenueFilter.page}
+                        size={revenueFilter.itemsPerPage}
+                        totalRecords={revenue.totalElements}
+                        itemsOnCurrentPage={revenue.financialPosts.length}
+                        pageChange={(pageNumber) => handlePageChange(pageNumber)}
+                    />
                 </Fieldset>
                 
                 </>

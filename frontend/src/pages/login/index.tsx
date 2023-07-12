@@ -5,19 +5,40 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
 import { AxiosError } from 'axios';
-import { LoginType, loginSchema } from '../../validation/login.schema';
+import { loginSchema } from '../../validation/login.schema';
 import { ValidationError } from 'yup';
+import { Input } from 'recomponentsui';
+import { FiGithub, FiMail, FiLock } from 'react-icons/fi';
+
+interface LoginType {
+    email: string,
+    password: string,
+    terms: boolean
+}
 
 const LoginComponent: React.FC = () => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState<LoginType>({ email: "", password: "" })
+    const [formData, setFormData] = useState<LoginType>({ email: "", password: "", terms: false })
     const { signIn, user } = useAuth()
     const { addToast } = useToast()
-    
+
+    const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, checked } = e.target
+        setFormData(oldValue => {
+            const retorno =  { ...oldValue, [name]: checked }; 
+            return retorno
+        })
+        
+    }
 
     const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { value, name } = e.target
-        setFormData(oldValue => {return { ...oldValue, [name]: value }})
+        
+        setFormData(oldValue => {
+            const retorno =  { ...oldValue, [name]: value }; 
+            return retorno
+        })
+        
     }
 
     const handleError = (error: unknown) => {
@@ -48,13 +69,47 @@ const LoginComponent: React.FC = () => {
 
     return (
         <div className='container'>
-            <h2>Faça login na plataforma</h2>
+            <h2 style={{ color: '#000', marginBottom: 8 }}>Faça login na plataforma</h2>
 
-            <InputText style={{ marginBottom: 8 }} placeholder='digite seu email' name="email" value={formData.email} onChange={(e) => handleFormChange(e)} />
+            <Input 
+                type='email'
+                containerStyle={{ marginBottom: 8 }} 
+                placeholder='digite seu email' 
+                icon={FiMail} 
+                minLength={3} 
+                name="email"
+                value={formData.email}
+                onChange={(e) => handleFormChange(e)} 
+                required
+            />
 
-            <InputText style={{ marginBottom: 20 }} placeholder='digite sua senha' name="password" value={formData.password} onChange={(e) => handleFormChange(e)} />
+            <Input 
+                type='password'
+                containerStyle={{ marginBottom: 20 }} 
+                placeholder='digite sua senha' 
+                icon={FiLock} 
+                minLength={3} 
+                name="password"
+                value={formData.password}
+                onChange={(e) => handleFormChange(e)} 
+                required
+            />
 
-            <Button label="Login" onClick={() => handleLogin()} icon="pi pi-check" />
+            <Input 
+                type='checkbox'
+                containerStyle={{ marginBottom: 20 }} 
+                placeholder='aceita os termos ?' 
+                icon={FiGithub} 
+                minLength={3} 
+                name="terms"
+                checked={formData.terms}
+                onChange={(e) => handleCheckChange(e)} 
+                required
+            />
+
+            <Button style={{ marginBottom: 8 }}  label="Login" onClick={() => handleLogin()} icon="pi pi-check" />
+
+            <Button style={{ backgroundColor: 'red' }} label="Limpar" onClick={() => setFormData({ email: "", password: "", terms: false  })} icon="pi pi-check" />
         </div>
     )
 }
